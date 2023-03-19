@@ -2,17 +2,41 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
 import Menu from "./Menu";
+import MenuMobile from "./MenuMobile";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
-import { BiMenuAiRight } from "react-icons/bi";
+import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
-  const [show, setShow] = useState("tranlate-y-0");
-  const [lastScrolly, setLastScrolly] = useState(0);
+  const [show, setShow] = useState("translate-y-0");
+  const [lastScrollY, setLastScrollY] = useState(0);
+  // console.log(window.screenY);
 
+  const controlNavbar = () => {
+    if (window.scrollY > 300) {
+      
+      if (window.scrollY > lastScrollY && !mobileMenu) {
+        setShow("-translate-y-[80px]");
+      } else {
+        setShow("shadow-sm");
+      }
+    } else {
+      setShow("translate-y-0");
+    }
+    setLastScrollY(window.scrollY)
+  };
+
+  // Nav Bar scroll Effect
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
   return (
     <header
       className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300  ${show}`}>
@@ -21,7 +45,15 @@ const Header = () => {
           <img src='/logo.svg' alt='' className='w-[40px] md:w-[60px]' />
         </Link>
         <Menu showCatMenu={showCatMenu} setShowCatMenu={setShowCatMenu} />
-
+        {mobileMenu ? (
+          <MenuMobile
+            showCatMenu={showCatMenu}
+            setShowCatMenu={setShowCatMenu}
+            setMobileMenu={setMobileMenu}
+          />
+        ) : (
+          ""
+        )}
         <div className='flex items-center gap-2 text-black'>
           {/* icon start  */}
           <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
@@ -39,20 +71,21 @@ const Header = () => {
             </div>
           </div>
           {/* icon end  */}
-
-          <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative'>
+          {/* mobile icon start */}
+          <div className='w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2 md:hidden'>
             {mobileMenu ? (
               <VscChromeClose
                 className='text-[16px]'
                 onClick={() => setMobileMenu(false)}
               />
             ) : (
-              <VscChromeClose
-                className='text-[16px]'
-                onClick={() => setMobileMenu(false)}
+              <BiMenuAltRight
+                className='text-[24px]'
+                onClick={() => setMobileMenu(true)}
               />
             )}
           </div>
+          {/* mobile icon start */}
         </div>
       </Wrapper>
     </header>
