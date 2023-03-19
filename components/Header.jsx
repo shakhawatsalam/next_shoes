@@ -17,7 +17,6 @@ const Header = () => {
 
   const controlNavbar = () => {
     if (window.scrollY > 300) {
-      
       if (window.scrollY > lastScrollY && !mobileMenu) {
         setShow("-translate-y-[80px]");
       } else {
@@ -26,7 +25,7 @@ const Header = () => {
     } else {
       setShow("translate-y-0");
     }
-    setLastScrollY(window.scrollY)
+    setLastScrollY(window.scrollY);
   };
 
   // Nav Bar scroll Effect
