@@ -12,8 +12,8 @@ const ProductCard = ({ data: { attributes: product, id } }) => {
       <Image
         width={500}
         height={500}
-        src={product.thumbnail.data.attributes.url}
-        alt={product.name}
+        src={product?.thumbnail?.data?.attributes?.url}
+        alt={product?.name}
         className='hover:scale-105 duration-200 '
       />
       <div className='p-4 text-base/[0.9]'>

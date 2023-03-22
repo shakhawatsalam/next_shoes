@@ -2,11 +2,12 @@
   "emmet.triggerExpansionOnTab": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "reactSnippets.settings.prettierEnabled": true,
+  
   "editor.formatOnSave": true,
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
     "vue-html": "html",
     "razor": "html",
     "plaintext": "jade"
-  }
+  },
 }
