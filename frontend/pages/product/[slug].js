@@ -32,6 +32,13 @@ const ProductDetails = ({ product, products }) => {
     }
 
 
+    // redux Object 
+    const cartObject = {
+        id: p.id,
+        productImage: p?.image?.data
+    }
+
+
 
     return (
         <div className="w-full md:py-20">
@@ -46,7 +53,7 @@ const ProductDetails = ({ product, products }) => {
                     {/* right colum start  */}
                     <div className="flex-[1] py-3">
                         {/* Product Title  */}
-                        <div className="text-[34px] font-semibold mb-2">
+                        <div className="text-[34px] font-semibold mb-2 leading-tight">
                             {p.name}
                         </div>
                         {/* Product Subtitle  */}
