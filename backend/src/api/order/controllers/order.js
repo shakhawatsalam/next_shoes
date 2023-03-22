@@ -1,6 +1,5 @@
 ("use strict");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
-
 /**
  * order controller
  */
@@ -22,7 +21,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
 
           return {
             price_data: {
-              currency: "usd",
+              currency: "inr",
               product_data: {
                 name: item.name,
               },
@@ -34,7 +33,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       );
 
       const session = await stripe.checkout.sessions.create({
-        shipping_address_collection: { allowed_countries: ["UAE"] },
+        shipping_address_collection: { allowed_countries: ["IN"] },
         payment_method_types: ["card"],
         mode: "payment",
         success_url: process.env.CLIENT_URL + `/success`,
@@ -49,6 +48,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       return { stripeSession: session };
     } catch (error) {
       ctx.response.status = 500;
+      console.log("start",error, "hjdlajlfjldajflkjla");
+
       return { error };
     }
   },
