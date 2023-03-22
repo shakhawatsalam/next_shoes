@@ -17,3 +17,16 @@ export const fetchDataFromApi = async (endpoint) => {
 };
 
 
+const makePaymentRequest = async (endpoint, payload) => {
+    const res = await fetch(`${API_URL}${endpoint}`, {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer' + STRAPI_API_TOKEN
+        },
+        body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    return data
+}
+
+
